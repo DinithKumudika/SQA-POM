@@ -38,7 +38,6 @@ public class TestDataProvider {
                 String password = row.getCell(2).getStringCellValue();
                 String expectedResult = row.getCell(3).getStringCellValue();
 
-                // Add the row data as an array
                 data.add(new Object[]{testCaseId, username, password, expectedResult});
             }
         }
