@@ -6,7 +6,7 @@ public class ConfigLoader {
     private static ConfigLoader configLoader;
 
     private ConfigLoader(){
-        properties = PropertyUtils.propertyLoader("/src/main/java/org/assignment2/config/config.properties");
+        properties = PropertyUtils.propertyLoader(System.getProperty("user.dir") + "\\src\\main\\java\\org\\assignment2\\config\\config.properties");
     }
 
     public static ConfigLoader getInstance(){

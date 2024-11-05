@@ -1,12 +1,15 @@
 package org.assignment2.base;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assignment2.utils.ConfigLoader;
 import org.assignment2.utils.TestUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
@@ -25,27 +28,35 @@ public class BaseTest {
         properties = ConfigLoader.getInstance().getProperties();
     }
 
-    @BeforeMethod
-    public static void setUp(){
+    /**
+     * Sets up the WebDriver before each test method.
+     * applies default configurations and navigates to the base URL specified in the properties file.
+     */
+    @BeforeSuite
+    public void setUp(){
         String browserName = properties.getProperty("browser");
 
         if(browserName.equals("chrome")){
+            WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         }
         else if(browserName.equals("FF")){
+            WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
         }
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TestUtils.PAGE_LOAD_TIMEOUT));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(TestUtils.IMPLICIT_WAIT));
-        driver.get(properties.getProperty("url"));
-
+//        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TestUtils.PAGE_LOAD_TIMEOUT));
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(TestUtils.IMPLICIT_WAIT));
     }
 
-    @AfterMethod
-    public static void tearDown() throws InterruptedException, IOException {
+    /**
+     * Tears down the WebDriver after each test method.
+     * This method quits the WebDriver instance, closing the browser after the test completes.
+     */
+    @AfterSuite
+    public void tearDown() throws InterruptedException, IOException {
         driver.quit();
     }
 

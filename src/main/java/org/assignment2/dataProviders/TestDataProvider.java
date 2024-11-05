@@ -4,6 +4,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.assignment2.utils.TestUtils;
 import org.testng.annotations.DataProvider;
 
 import java.io.FileInputStream;
@@ -13,17 +14,15 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TestDataProvider {
-
-    public static String LOGIN_DATA_PATH = "../testData/testData.xlsx";
     @DataProvider(name = "getLoginCredentials", parallel = false)
     public Object[][] getLoginData() throws IOException {
+        FileInputStream fileInputStream = TestUtils.getDataFromExcel();
         List<Object[]> data = new ArrayList<>();
-        FileInputStream fileInputStream = new FileInputStream(LOGIN_DATA_PATH);
 
         try (Workbook workbook = new XSSFWorkbook(fileInputStream)) {
-            Sheet sheet = workbook.getSheet("login_data");
+            Sheet sheet = workbook.getSheet("login data");
             if (sheet == null) {
-                throw new IOException("Sheet 'login_data' not found in " + LOGIN_DATA_PATH);
+                throw new IOException("Sheet 'login_data' not found in " + TestUtils.TEST_DATA_PATH);
             }
 
             // Skip the header row

@@ -11,7 +11,8 @@ public class TestUtils extends BaseTest {
 
     public static String TEST_DATA_PATH = "../testData/testData.xlsx";
 
-    public static getDataFromExcel() throws IOException {
+    public static FileInputStream getDataFromExcel() throws IOException {
         FileInputStream fileInputStream = new FileInputStream(TEST_DATA_PATH);
+        return fileInputStream;
     }
 }
