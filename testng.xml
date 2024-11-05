@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TecRoot Test Suite">
+    <test verbose="2" preserve-order="true" name="D:/Uni/4th Year/SQA/assignment/Assignment2">
+        <classes>
+<!--            <class name="org.assignment2.tests.LoginTest">-->
+<!--                <methods>-->
+<!--                    <include name="testLogin"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+            <class name="org.assignment2.tests.HomePageTest">
+                <methods>
+                    <include name="verifyHomePageTitleTest"/>
+                    <include name="allowNotificationPopUpTest"/>
+                    <include name="openChatWindowAndRedirectToWhatsappTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
