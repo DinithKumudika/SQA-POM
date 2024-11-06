@@ -37,7 +37,7 @@ public class BaseTest {
         String browserName = properties.getProperty("browser");
 
         if(browserName.equals("chrome")){
-            WebDriverManager.chromedriver().setup();
+            WebDriverManager.chromedriver().driverVersion("130.0.6723.93").setup();
             driver = new ChromeDriver();
         }
         else if(browserName.equals("FF")){

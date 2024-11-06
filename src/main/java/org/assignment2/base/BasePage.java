@@ -1,5 +1,4 @@
 package org.assignment2.base;
-
 import org.assignment2.utils.ConfigLoader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

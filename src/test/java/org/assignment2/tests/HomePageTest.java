@@ -1,10 +1,9 @@
 package org.assignment2.tests;
-
 import org.assignment2.base.BaseTest;
 import org.assignment2.pages.HomePage;
+import org.assignment2.utils.EmailVerification;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -65,8 +64,7 @@ public class HomePageTest extends BaseTest {
 
     @Test(priority = 3, dependsOnMethods = {"allowNotificationPopUpTest"})
     @Parameters("email")
-    public void signUpToNewsletterTest(String email)
-    {
+    public void signUpToNewsletterTest(String email) throws InterruptedException {
         homePage.enterEmailForNewsletter(email);
         homePage.clickSignUpNewsletterButton();
 
@@ -80,5 +78,10 @@ public class HomePageTest extends BaseTest {
 
         driver.close();
         driver.switchTo().window(tabs.get(0));
+
+        Thread.sleep(2000);
+
+        boolean emailReceived = EmailVerification.checkForConfirmationEmail(email, properties.getProperty("gmailAppPassword"), "TecRoot: Subscription Confirmed");
+        Assert.assertTrue(emailReceived, "Subscription email wasn't sent to the email: " + email);
     }
 }

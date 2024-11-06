@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TecRoot Test Suite">
     <test verbose="2" preserve-order="true" name="Home Page Tests">
-        <parameter name="email" value="dinithwalpitagama@gmail.com"/>
+        <parameter name="email" value="kumudikadinith@gmail.com"/>
         <classes>
             <class name="org.assignment2.tests.HomePageTest">
                 <methods>
