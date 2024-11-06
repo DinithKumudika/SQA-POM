@@ -5,6 +5,7 @@ import org.assignment2.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -62,9 +63,22 @@ public class HomePageTest extends BaseTest {
         driver.switchTo().window(tabs.get(0));
     }
 
-    @Test(priority = 3)
-    public void openAccountPage()
+    @Test(priority = 3, dependsOnMethods = {"allowNotificationPopUpTest"})
+    @Parameters("email")
+    public void signUpToNewsletterTest(String email)
     {
+        homePage.enterEmailForNewsletter(email);
+        homePage.clickSignUpNewsletterButton();
 
+//        Switch to the new tab that opens for confirmation
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+
+        String currentUrl = driver.getCurrentUrl();
+        String expectedUrl = homePage.getBaseUrl() + "subscription-confirmation/";
+        Assert.assertTrue(currentUrl.contains(expectedUrl), "The subscription confirmation page did not load as expected.");
+
+        driver.close();
+        driver.switchTo().window(tabs.get(0));
     }
 }

@@ -19,10 +19,15 @@ public class HomePage extends BasePage {
     private WebElement popupContainer;
     @FindBy(className = "joinchat__button__open")
     private WebElement chatButton;
-    @FindBy(className = "joinchat__button__open")
+    @FindBy(className = "joinchat__button")
     private WebElement innerChatButton;
     @FindBy(className = "joinchat__box")
     private WebElement chatBox;
+    @FindBy(xpath = "//input[@id='mce-EMAIL']")
+    private WebElement newsletterEmail;
+    @FindBy(xpath = "//input[@id='mc-embedded-subscribe']")
+    private WebElement newsletterSignUpBtn;
+
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -84,12 +89,26 @@ public class HomePage extends BasePage {
         waitForClickability(innerChatButton);
         this.innerChatButton.click();
     }
-    
+
     /**
      * Verify if the chat window is opened.
      */
     public boolean isChatWindowOpen() {
         waitForVisibility(chatBox);
         return chatBox.isDisplayed();
+    }
+
+    /**
+     * enter email for newsletter subscription.
+     */
+    public void enterEmailForNewsletter(String email) {
+        newsletterEmail.sendKeys(email);
+    }
+
+    /**
+     * click the SignUp button for newsletter subscription.
+     */
+    public void clickSignUpNewsletterButton() {
+        newsletterSignUpBtn.click();
     }
 }

@@ -22,6 +22,15 @@ public class BasePage {
     }
 
     /**
+     * get baseUrl of the SUT.
+     * @return base url.
+     */
+    public String getBaseUrl()
+    {
+        return this.baseUrl;
+    }
+
+    /**
      * Loads the full URL by appending the endpoint to the base URL.
      * @param endPoint The endpoint to append to the base URL.
      */
