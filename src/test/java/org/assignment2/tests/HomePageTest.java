@@ -1,5 +1,6 @@
 package org.assignment2.tests;
 import org.assignment2.base.BaseTest;
+import org.assignment2.pages.AccountPage;
 import org.assignment2.pages.HomePage;
 import org.assignment2.utils.EmailVerification;
 import org.testng.Assert;
@@ -83,5 +84,12 @@ public class HomePageTest extends BaseTest {
 
         boolean emailReceived = EmailVerification.checkForConfirmationEmail(email, properties.getProperty("gmailAppPassword"), "TecRoot: Subscription Confirmed");
         Assert.assertTrue(emailReceived, "Subscription email wasn't sent to the email: " + email);
+    }
+
+    @Test(priority = 3, dependsOnMethods = {"allowNotificationPopUpTest", "signUpToNewsletterTest"})
+    public void goToAccountPageTest() throws InterruptedException {
+        AccountPage accountPage = homePage.clickMyAccountLink();
+        String accountPageTitle = accountPage.verifyAccountPageTitle();
+        Assert.assertEquals(accountPageTitle, accountPage.getPageTitle(),"Account page title not matched");
     }
 }

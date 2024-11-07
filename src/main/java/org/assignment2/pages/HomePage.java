@@ -27,6 +27,8 @@ public class HomePage extends BasePage {
     private WebElement newsletterEmail;
     @FindBy(xpath = "//input[@id='mc-embedded-subscribe']")
     private WebElement newsletterSignUpBtn;
+    @FindBy(xpath = "//a[@title='My Account']")
+    private WebElement myAccountLink;
 
 
     public HomePage(WebDriver driver) {
@@ -110,5 +112,10 @@ public class HomePage extends BasePage {
      */
     public void clickSignUpNewsletterButton() {
         newsletterSignUpBtn.click();
+    }
+
+    public AccountPage clickMyAccountLink() {
+        myAccountLink.click();
+        return new AccountPage(driver);
     }
 }

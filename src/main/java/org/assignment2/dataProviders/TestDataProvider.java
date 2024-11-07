@@ -1,5 +1,6 @@
 package org.assignment2.dataProviders;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -32,10 +33,10 @@ public class TestDataProvider {
             // Iterate through each row and read columns
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                String testCaseId = row.getCell(0).getStringCellValue();
-                String username = row.getCell(1).getStringCellValue();
-                String password = row.getCell(2).getStringCellValue();
-                String expectedResult = row.getCell(3).getStringCellValue();
+                String testCaseId = getCellValue(row.getCell(0));
+                String username = getCellValue(row.getCell(1));
+                String password = getCellValue(row.getCell(2));;
+                String expectedResult =  getCellValue(row.getCell(4));
 
                 data.add(new Object[]{testCaseId, username, password, expectedResult});
             }
@@ -43,5 +44,9 @@ public class TestDataProvider {
 
         // Convert list to Object[][] for DataProvider
         return data.toArray(new Object[0][]);
+    }
+
+    private String getCellValue(Cell cell) {
+        return (cell == null) ? "" : cell.getStringCellValue();
     }
 }
