@@ -14,6 +14,7 @@ import java.time.Duration;
 public class AccountPage extends BasePage {
 
     private String pageTitle = "My Account | TecRoot";
+    private String loginErrorMessageTitle = "The username or password you entered is incorrect";
 
     @FindBy(id = "username")
     private WebElement usernameLogin;
@@ -52,14 +53,43 @@ public class AccountPage extends BasePage {
         return this.driver.getTitle();
     }
 
+    /**
+     * enter username/email to the username/email text field
+     */
     public void setUsernameLogin(String username){
-        usernameLogin.sendKeys(username);
+        if(usernameLogin.isDisplayed()){
+            usernameLogin.sendKeys(username);
+        }
+    }
+    /**
+     * clear username/email text field
+     */
+    public void clearUsernameLogin(){
+        if(usernameLogin.isDisplayed()){
+            usernameLogin.clear();
+        }
     }
 
+    /**
+     * enter password to the password text field
+     */
     public void setPasswordLogin(String password){
-        passwordLogin.sendKeys(password);
+        if(passwordLogin.isDisplayed()){
+            passwordLogin.sendKeys(password);
+        }
+    }
+    /**
+     * clear password text field
+     */
+    public void clearPasswordLogin(){
+        if(passwordLogin.isDisplayed()){
+            passwordLogin.clear();
+        }
     }
 
+    /**
+     * click on Login button
+     */
     public void clickOnLoginBtn(){
         loginBtn.click();
     }

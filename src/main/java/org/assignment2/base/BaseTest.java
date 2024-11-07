@@ -1,15 +1,14 @@
 package org.assignment2.base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.assignment2.utils.BrowserFactory;
 import org.assignment2.utils.ConfigLoader;
 import org.assignment2.utils.TestUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
@@ -21,8 +20,9 @@ import java.time.Duration;
 import java.util.Properties;
 
 public class BaseTest {
-    public static WebDriver driver;
+    protected WebDriver driver;
     public static Properties properties;
+    protected BrowserFactory browserFactory;
 
     public BaseTest(){
         properties = ConfigLoader.getInstance().getProperties();
@@ -32,18 +32,21 @@ public class BaseTest {
      * Sets up the WebDriver before each test method.
      * applies default configurations and navigates to the base URL specified in the properties file.
      */
-    @BeforeSuite
-    public void setUp(){
-        String browserName = properties.getProperty("browser");
+    @Parameters("browser")
+    @BeforeClass
+    public void setUp(String browser){
 
-        if(browserName.equals("chrome")){
-            WebDriverManager.chromedriver().driverVersion("130.0.6723.93").setup();
-            driver = new ChromeDriver();
-        }
-        else if(browserName.equals("FF")){
-            WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
-        }
+//        if(browser.equalsIgnoreCase("chrome")){
+//            WebDriverManager.chromedriver().driverVersion("130.0.6723.93").setup();
+//            driver = new ChromeDriver();
+//        }
+//        else if(browser.equalsIgnoreCase("edge")){
+//            WebDriverManager.edgedriver().setup();
+//            driver = new EdgeDriver();
+//        }
+
+        this.browserFactory = BrowserFactory.getBrowserFactory(browser);
+        this.driver = browserFactory.getDriver();
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
@@ -55,9 +58,10 @@ public class BaseTest {
      * Tears down the WebDriver after each test method.
      * This method quits the WebDriver instance, closing the browser after the test completes.
      */
-    @AfterSuite
+    @AfterClass
     public void tearDown() throws InterruptedException, IOException {
-        driver.quit();
+// Call the BrowserFactory's quit method to clean up the driver instance
+        this.browserFactory.quitDriver();
     }
 
     private void takeScreenshotUsingAShot(File destFile){

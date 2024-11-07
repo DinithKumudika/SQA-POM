@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TecRoot Test Suite">
-    <test verbose="2" preserve-order="true" name="Home Page Tests">
+<suite name="TecRoot Test Suite" parallel="tests" thread-count="2">
+    <test verbose="2" preserve-order="true"  name="Chrome Tests">
         <parameter name="email" value="kumudikadinith@gmail.com"/>
+        <parameter name="browser" value="chrome"/>
         <classes>
             <class name="org.assignment2.tests.HomePageTest">
                 <methods>
@@ -13,9 +14,15 @@
                     <include name="goToAccountPageTest"/>
                 </methods>
             </class>
-            <class name="org.assignment2.tests.LoginTest">
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Edge Tests">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="org.assignment2.tests.AccountPageTest">
                 <methods>
-                    <include name="verifyAccountPageTitle"/>
+                    <include name="verifyAccountPageTitleTest"/>
+                    <include name="loginTest"/>
                 </methods>
             </class>
         </classes>
